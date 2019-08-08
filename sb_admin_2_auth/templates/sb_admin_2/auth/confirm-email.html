@@ -1,0 +1,44 @@
+
+{% extends "sb_admin_2/auth/card.html" %}
+
+{% load i18n %}
+{% load account %}
+
+{% block title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+
+{% block card %}
+<!-- Nested Row within Card Body -->
+<div class="row">
+  <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
+  <div class="col-lg-6">
+    <div class="p-5">
+      <div class="text-center">
+        <h1 class="h4 text-gray-900 mb-2">{% trans "Confirm E-mail Address" %}</h1>
+        <p class="mb-4">
+          {% if confirmation %}
+            {% user_display confirmation.email_address.user as user_display %}
+            {% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}
+          {% else %}
+            {% url 'account_email' as email_url %}
+            <p>{% blocktrans %}This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.{% endblocktrans %}</p>
+          {% endif %}
+        </p>        
+      </div>
+      {% if confirmation %}
+        <form method="post" class="user" action="{% url 'account_confirm_email' confirmation.key %}">
+          {% csrf_token %}
+          <button class="btn btn-primary btn-user btn-block" type="submit">{% trans 'Confirm' %}</button>
+        </form>
+      {% endif %}
+      <hr>
+      <div class="text-center">
+          <a class="small" href="{% url 'account_reset_password' %}">{% trans 'Forgot Password?' %}</a>
+        </div>
+      <div class="text-center">
+        <a class="small" href="{% url 'account_login' %}">{% trans "Already have an account? Login!" %}</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

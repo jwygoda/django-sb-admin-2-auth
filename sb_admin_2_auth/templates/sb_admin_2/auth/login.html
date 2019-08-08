@@ -1,0 +1,53 @@
+{% extends "sb_admin_2/auth/card.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Login" %}{% endblock %}
+
+{% block card %}
+  <!-- Nested Row within Card Body -->
+  <div class="row">
+    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+    <div class="col-lg-6">
+      <div class="p-5">
+        <div class="text-center">
+          <h1 class="h4 text-gray-900 mb-4">{% trans "Welcome Back!" %}</h1>
+        </div>
+        <form class="user" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %}
+          <div class="form-group">
+    	      {{ form.login }}
+          </div>
+          {{ form.login.errors }}
+          <div class="form-group">
+            {{ form.password }}
+          </div>
+          {{ form.password.errors }}
+          <div class="form-group">
+            <div class="custom-control custom-checkbox small">
+    	        {{ form.remember }}
+    	        <label class="custom-control-label" for="{{ form.remember.id_for_label }}">{{ form.remember.label }}</label>
+            </div>
+          </div>
+          {{ form.non_field_errors }}
+          <button class="btn btn-primary btn-user btn-block">
+    	      {% trans "Login" %}
+          </button>
+          {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+        </form>
+        <hr>
+        <div class="text-center">
+          <a class="small" href="{% url 'account_reset_password' %}">{% trans 'Forgot Password?' %}</a>
+        </div>
+        <div class="text-center">
+          <a class="small" href="{% url 'account_signup' %}">{% trans 'Create an Account!' %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

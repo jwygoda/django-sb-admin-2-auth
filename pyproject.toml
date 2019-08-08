@@ -1,0 +1,27 @@
+[build-system]
+requires = ["flit"]
+build-backend = "flit.buildapi"
+
+[tool.flit.metadata]
+module = "sb_admin_2_auth"
+dist-name = "django-sb-admin-2-auth"
+author = "Jarosław Wygoda"
+author-email = "wygoda.jaroslaw@gmail.com"
+home-page = "https://github.com/jwygoda/django-sb-admin-2-auth"
+requires = ["django-allauth"]
+description-file = "README.md"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+]
+
+[tool.flit.metadata.requires-extra]
+dev = ["black", "isort", "pre-commit"]
+test = ["tox"]
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 88
+known_third_party = ["allauth", "django"]

@@ -1,0 +1,15 @@
+{% extends "sb_admin_2/auth/forgot_password/base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Forgot Password" %}{% endblock %}
+
+{% block paragraph %}
+  {% trans "Your password is now changed." %}
+{% endblock %}
+
+{% block form %}
+  <form class="user" method="POST">
+    <a class="btn btn-primary btn-user btn-block" href="{% url "account_login" %}">{% trans "Login" %}</a>
+  </form>
+{% endblock %}
